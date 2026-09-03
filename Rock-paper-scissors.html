@@ -27,9 +27,7 @@
     };
     let result;
     // const savedScore = localStorage.getItem('rpsScore');
-    // if (savedScore) {
-    //     Object.assign(score, JSON.parse(savedScore));
-    // }
+    // if (savedScore) {Object.assign(score, JSON.parse(savedScore));}
     function updateScore() {
     document.querySelector(".js-score")
         .innerHTML = `Your score: ${score.userScore}, Computer score: ${score.computerScore}, Ties: ${score.tieScore}`;
