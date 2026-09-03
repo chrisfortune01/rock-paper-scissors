@@ -12,6 +12,10 @@
     <button onclick="playGame('paper');"> Paper</button>
 
     <button onclick="playGame('scissors');"> Scissors</button>
+    
+    <p class="js-result"></p>
+    <p class="js-choices"></p>
+    <p class="js-score"></p>
 
     <button onclick="resetScore()">Reset Scores</button>
 
@@ -21,11 +25,17 @@
         computerScore: 0,
         tieScore: 0,
     };
+    let result;
     // const savedScore = localStorage.getItem('rpsScore');
     // if (savedScore) {
     //     Object.assign(score, JSON.parse(savedScore));
     // }
-    
+    function updateScore() {
+    document.querySelector(".js-score")
+        .innerHTML = `Your score: ${score.userScore}, Computer score: ${score.computerScore}, Ties: ${score.tieScore}`;
+    }
+    updateScore()
+
     function playGame(userChoice) {
         const randomNumber = Math.random();
         let computerChoice;
@@ -38,24 +48,25 @@
             computerChoice = 'scissors';
         }
         
-        // console.log(`Computer picks ${computerChoice}`);
-        
         if (userChoice === computerChoice) {
             score.tieScore++;
-            (alert(`You picked ${userChoice}. Computer picked ${computerChoice}. It\'s a tie!.\n Your score: ${score.userScore} Computer score: ${score.computerScore} Ties: ${score.tieScore}`));
+            result = "It's a tie.";
         } else if (
             (userChoice === 'rock' && computerChoice === 'scissors') ||
             (userChoice === 'paper' && computerChoice === 'rock') ||
             (userChoice === 'scissors' && computerChoice === 'paper')
         ) {
             score.userScore++;
-            alert(`You picked ${userChoice}. Computer picked ${computerChoice}. You win!.\n Your score: ${score.userScore} Computer score: ${score.computerScore} Ties: ${score.tieScore}`);
+            result = 'You win.';
         } else {
             score.computerScore++;
-            alert(`You picked ${userChoice}. Computer picked ${computerChoice}. Computer wins!.\n Your score: ${score.userScore} Computer score: ${score.computerScore} Ties: ${score.tieScore}`);
+            result = 'You lose.';    
         }
         localStorage.setItem('rpsScore', JSON.stringify(score));
-        return console.log(`Computer picks ${computerChoice}`);
+        document.querySelector(".js-result").innerHTML = result;
+        document.querySelector(".js-choices").innerHTML = `You picked ${userChoice}. Computer picked ${computerChoice}.`;
+        updateScore();
+        // return console.log(`Computer picks ${computerChoice}`);
     }
     
     function resetScore() { 
@@ -63,7 +74,10 @@
         score.userScore = 0;
         score.computerScore = 0;
         score.tieScore = 0;
-        console.log(alert(`Scores have been reset.\n Your score: ${score.userScore} Computer score: ${score.computerScore} Ties: ${score.tieScore}`));
+        document.querySelector(".js-result").innerHTML = '';
+        document.querySelector(".js-choices").innerHTML ='';
+        updateScore();
+        // return console.log('Scores have been reset!')
     }
     
     </script>
