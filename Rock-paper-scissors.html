@@ -4,20 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            background-color: rgb(25, 25, 25);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-left: 50px;
+        }
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+            padding: 5px 0px 0px 0px; /*clockwise direction*/
+        }
+        .image-choice {
+            height: 50px;
+        }
+        .button-choice {
+            background-color: transparent;
+            height: 120px;
+            width: 120px;
+            border: 3px solid white;
+            border-radius: 60px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .css-result {
+            padding: 20px 0px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .css-choices {
+            padding: 0px 0px 40px 0px;
+        }
+        .reset-button {
+            border: none;
+            font-size: 15px;
+            padding: 10px 15px;
+            background-color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <p>Rock Paper Scissors</p>
-    <button onclick="playGame('rock');"> Rock</button>
+    <p class="title">Rock Paper Scissors</p>
 
-    <button onclick="playGame('paper');"> Paper</button>
-
-    <button onclick="playGame('scissors');"> Scissors</button>
+    <button class="button-choice" onclick="playGame('rock');">
+        <img src="images/rock-emoji.png" class="image-choice" alt="rock image">
+    </button>
+    <button class="button-choice" onclick="playGame('paper');">
+        <img src="images/paper-emoji.png" class="image-choice" alt="paper image">
+    </button>
+    <button class="button-choice" onclick="playGame('scissors');">
+        <img src="images/scissors-emoji.png" class="image-choice" alt="scissors image">
+    </button>
     
-    <p class="js-result"></p>
-    <p class="js-choices"></p>
+    <p class="js-result css-result"></p>
+    <p class="js-choices css-choices"></p>
     <p class="js-score"></p>
 
-    <button onclick="resetScore()">Reset Scores</button>
+    <button onclick="resetScore()" class="reset-button">Reset Score</button>
 
     <script>
     const score = JSON.parse(localStorage.getItem('rpsScore')) || {
@@ -62,9 +107,12 @@
         }
         localStorage.setItem('rpsScore', JSON.stringify(score));
         document.querySelector(".js-result").innerHTML = result;
-        document.querySelector(".js-choices").innerHTML = `You picked ${userChoice}. Computer picked ${computerChoice}.`;
+        document.querySelector(".js-choices").innerHTML = 
+        `You
+        <img src="images/${userChoice}-emoji.png" class="image-choice" alt="">
+        <img src="images/${computerChoice}-emoji.png" class="image-choice" alt="">
+        Computer`;
         updateScore();
-        // return console.log(`Computer picks ${computerChoice}`);
     }
     
     function resetScore() { 
@@ -75,7 +123,6 @@
         document.querySelector(".js-result").innerHTML = '';
         document.querySelector(".js-choices").innerHTML ='';
         updateScore();
-        // return console.log('Scores have been reset!')
     }
     
     </script>
