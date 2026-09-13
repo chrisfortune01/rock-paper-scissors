@@ -12,10 +12,13 @@ document.querySelector(".js-score")
 }
 updateScore()
 
-function playGame(userChoice) {
+let computerChoice;
+let isAutoPlaying = false;
+let intervalID;
+
+function computerMove() {
     const randomNumber = Math.random();
-    let computerChoice;
-    
+
     if (randomNumber < 1/3) {
         computerChoice = 'rock';
     } else if (randomNumber < 2/3) {
@@ -23,7 +26,26 @@ function playGame(userChoice) {
     } else {
         computerChoice = 'scissors';
     }
-    
+}
+
+function autoPlay() {
+    if (!isAutoPlaying) {
+        intervalID = setInterval(() => {
+            computerMove();
+            const playerMove = computerChoice;
+            playGame(playerMove);
+        }, 1000)
+        isAutoPlaying = true;
+        document.querySelector(".auto-play-js").innerHTML = "Stop Playing";
+    } else {
+        clearInterval(intervalID)
+        isAutoPlaying = false;
+        document.querySelector(".auto-play-js").innerHTML = "Auto Play";
+    }
+}
+
+function playGame(userChoice) {
+    computerMove();
     if (userChoice === computerChoice) {
         score.tieScore++;
         result = "It's a tie.";

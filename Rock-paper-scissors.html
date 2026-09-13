@@ -36,10 +36,11 @@
         .css-choices {
             padding: 0px 0px 40px 0px;
         }
-        .reset-button {
+        .reset-button, .auto-play-button {
             border: none;
             font-size: 15px;
             padding: 10px 15px;
+            margin: 5px;
             background-color: white;
             cursor: pointer;
         }
@@ -63,6 +64,7 @@
     <p class="js-score"></p>
 
     <button onclick="resetScore()" class="reset-button">Reset Score</button>
+    <button onclick="autoPlay()" class="auto-play-js auto-play-button">Auto Play</button>
 
     <script src="rps.js"></script>
 </body>
